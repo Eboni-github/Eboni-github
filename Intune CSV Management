@@ -1,0 +1,59 @@
+Overview
+This document outlines a streamlined approach to managing CSV file size for uninterrupted Intune device enrollment, specifically addressing scenarios with regularly added devices. 
+I am providing both manual and automated process.
+Intune has a file size limit, often around 500 rows, which can create challenges when continuously importing new devices. 
+By proactively managing your CSV file size, you can ensure smooth and efficient enrollment processes, avoid disruptions, and potentially improve device performance. 
+This document guides users through identifying and safely removing previously enrolled devices, ensuring seamless enrollment continuity for new additions. 
+
+Key aspects covered include:
+• Safely removing devices from the CSV
+• Best practices for ongoing management
+
+Optimizing Intune Enrollment File Size
+A Guide to Safely Remove Devices from the CSV
+1. Locate the Intune device enrollment CSV file 
+
+2. Right-click the CSV file and select ‘Open With’ and select Notepad from the applications list NOT Excel
+
+3. Observe the headers in Notepad, but do NOT modify them
+
+4. To identify rows representing previously enrolled devices for removal, select all rows EXCLUDING the first two rows containing headers and first device enrolled
+
+5. Delete selected rows
+
+6. Save the modified file
+
+Important Note: According to Microsoft, Modifying the hybridmanual.csv file with Excel may corrupt the 
+data and render it unusable for Intune device enrollment. Always use Notepad for editing this file
+
+Automated Process: 
+
+Overview
+This PowerShell script simplifies managing the CSV file used for Autopilot enrollment in Intune. Intune only processes up to 500 rows per CSV file, so this script helps ensure the 
+file stays within that limit for successful enrollment. The script imports the first six rows containing Autopilot configurations data from the CSV file, converts it to a suitable format for re-import and 
+removes double quotes. Finally, the script writes the modified data back to the original CSV file. 
+
+Guided Steps
+
+1. Open a PowerShell ISE window
+3. Use the ’Set-Location’ cmdlet to navigate to your Script Location
+  a) ie Set-Location C:\Users\[Replace With Your User Name]\Desktop
+4. Run the script by typing the script name
+  a) .\RemoveOldAutoPilotDevices.ps
+
+See Below the Powershell script. Please edit as needed for your environment: 
+
+                    #Store the CSV file path within a variable
+                    $CSVPath = "Enter CSV Path"
+                    
+                    #Import CSV and select the first 6 rows
+                    $data = Import-CSV -Path $CSVPath | Select-Object -First 6
+                    
+                    #Convert to CSV without Type information
+                    $NewCSVcontent = $data | ConvertTo-CSV -NoTypeInformation 
+                    
+                    #Remove all double Quotes placed by ConverTo-CSV cmdlet
+                    $NewCSVcontentWithoutQuotes = $NewCSVcontent -replace '"', ''
+                    
+                    #Output to updated CSV file
+                    $NewCSVcontentWithoutQuotes | Out-File $CSVPath -Encoding utf8 
