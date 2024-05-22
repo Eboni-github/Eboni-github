@@ -1,0 +1,22 @@
+                    Overview
+In a hybrid cloud environment, user profiles can sometimes become corrupted or misconfigured, leading to 
+application malfunctions. This document outlines the procedure for deleting and rebuilding a user profile within such 
+an environment. By performing a controlled deletion and rebuild, we can resolve application issues stemming from 
+corrupted profiles and restore the user's environment to a functional state.
+
+Guided Steps
+1. Access the user’s Drive (if applicable) to create a folder and back up any critical documents and files. Consider if your org has enabled roaming profile
+
+2. Log out the existing user.
+
+3. Using your credentials, log into the system with your administrator credentials.
+
+4. In the search bar, type “Run” to access the Run dialog box and type “systempropertiesadvanced” to access the 
+system properties window
+
+5. Under the “Advanced” click the “Settings” button within the ‘User Profiles’ section. 
+
+6. Locate the user profile you intend to delete and click “Yes” in the confirmation window.
+
+7. Once the user profile is deleted, have the user sign back in using their existing credentials to rebuild their 
+profile and verify if the applications are functioning as expected
