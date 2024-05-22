@@ -1,0 +1,54 @@
+                  Overview
+This document provides guidance on troubleshooting missing email contact fields in user accounts within Azure 
+Active Directory (Azure AD), Microsoft 365, and Exchange Online. This issue can prevent users from receiving emails. 
+Understanding user synchronization with Azure AD is essential. When using Azure AD Connect, specific attributes in the 
+on-premises Active Directory (AD) map to corresponding attributes in Azure AD. These mapped attributes define how 
+user information like names and email addresses are displayed within Azure services. This guide explores these 
+attributes and the troubleshooting process to resolve missing email contact fields.
+
+
+Focus: Attributes Populating the Email Contact Field
+The email contact field in Azure AD and related services typically gets populated by one of the following attributes from 
+your on-premises AD, depending on the specific synchronization configuration:
+
+        • userPrincipalName (UPN): In some Azure AD Connect configurations; this is the primary attribute used for 
+        syncing user identities and populating the email contact field.
+        • mail (Primary Attribute): If you're using a legacy on-premises Exchange server with DirSync for syncing, this 
+        attribute might be used instead of UPN.
+        • proxyAddresses (Primary Attribute): This attribute can hold multiple email addresses for a user. The one 
+        prefixed with "SMTP:" (uppercase) is considered the primary email address and might be used to populate the 
+        email contact field in some scenarios. Lowercase entries with "smtp:" prefixes can also be included for 
+        secondary email addresses.
+
+                Scenario: A user within a specific group is not receiving emails sent to the group
+                              Instructions on Cloud Service Administration
+
+Troubleshooting Steps
+1. Verify User Attributes in On-Premises Active Directory:
+    o As an administrator, open Active Directory Users and Computers (ADUC) and ensure "Advanced 
+    Features" is enabled in the View menu.
+    o Locate the group experiencing the issue with a missing email contact field. You can find the group by 
+    name or by browsing the directory structure.
+    o Double-click the group to view its members list.
+    o Right-click the user within the group list who has the missing email contact field and select "Properties."
+    o Navigate to the "Attribute Editor" tab.
+
+2. Review Key Attributes:
+    o Focus on the following attributes:
+    i. userPrincipalName (UPN) - This is the preferred attribute for user identity syncing in most Azure 
+    AD Connect configurations.
+    ii. (Primary Attribute) mail - This attribute might be used for syncing if you're using a legacy onpremises Exchange server with DirSync.
+    iii. (Primary Attribute) proxyAddresses - This attribute can hold multiple email addresses. Ensure it 
+    includes at least one entry with the format SMTP:[primary email address] (uppercase "SMTP:").
+
+3. Address Missing or Incorrect Values:
+    o If any of the above attributes are missing or contain incorrect values, update them with the appropriate 
+    email address information.
+
+4. Verify Synchronization and Functionality:
+      o Some environments have automatic directory synchronization every 30 minutes, allow sufficient time 
+      for the changes to propagate to Azure AD.
+      o After the estimated sync time has passed, check if the email contact field is populated for the user 
+      within Azure AD or related services. 
+      o Optional Test Email: Consider sending a test email to the group to confirm the user is now receiving 
+      emails successfully. However, proceed with caution.
