@@ -1,0 +1,26 @@
+                    Overview
+Distribution groups are used to consolidate groups of recipients into a single point of contact 
+for email messages. Use cases for distribution lists can serve a variety of purposes such as, sending 
+announcements to a large group of people or communicating with a team or project group. We have 
+a Hybrid environment, so distribution groups are managed on-premises and in the cloud. in Active 
+Directory Domain Services (AD DS). 
+
+By default, on-premises distribution groups only allow internal users to send emails to the 
+group. To allow external users to send emails to the group, change the distribution group 
+‘MsExchRequireAuthTo’ attribute in AD DS from ‘True’ to ‘False’. When the attribute is set to ‘True’, 
+only internal users can send emails to the group. When this attribute is set to ‘False’, anyone can 
+send emails to this group. Therefore, allowing external users to send emails to your on-premises 
+distribution groups which also can increase the risk of spam, phishing, and malware attacks.
+
+
+
+Cloud Services Administration
+
+            Managing On-Premises Distribution Groups & External Users
+            1. Open Active Directory Users and Computers.
+            2. Expand the domain tree and select the OU where the distribution group is located.
+            3. Right-click the distribution group and select Properties.
+            4. Click the Attribute Editor tab.
+            5. Locate the ‘msExchRequireAuthTo’ and double click it.
+            6. Change the Boolean value from ‘True’ to ‘False’.
+            7. Select OK to save changes.
