@@ -1,0 +1,33 @@
+                  Overview
+This document outlines the steps to troubleshoot and resolve issues with Zoho installation (for example) when encountering conflicts 
+within the Windows registry. The solution involves removing a specific registry key and reinstalling Zoho through the 
+Company Portal.
+                                                                                            
+This approach ensures a clean installation environment for Zoho, eliminating potential interference from previous 
+installations or registry modifications.
+                                                                                            
+Resolution Steps
+      1. Run Registry Editor (Regedit) as Administrator.
+                                                                                            
+      2. Save a Backup of the Current Registry 
+        a. Navigate to File > Export within the registry editor
+        b. Enter a descriptive name for the backup file and choose a safe location to save it
+                                                                                            
+      3. Using the tree structure on the left pane, carefully navigate to and delete the Zoho Assist folder within the 
+      registry editor. 
+        a. HKEY_LOCAL_MACHINE > Zoho Assist
+                                                                                            
+      4. Close the registry editor and restart your device to allow changes to take effect.
+                                                                                            
+      5. Open the Company Portal application on the device
+        a. If Zoho is already listed as “Installed”, select “(retry) Uninstall”
+        b. In some cases, Zoho may need to be uninstalled manually through “Programs & Features” or “Apps & 
+        Features”
+                                                                                            
+      6. Reinstall Zoho
+                                                                                            
+Security & Compliance Concerns
+                                                                                            
+Modifying the registry carries inherent risks like accidental deletion, but
+creating a backup beforehand (Step 2) minimizes these risks by allowing 
+restoration if needed.
