@@ -1,6 +1,6 @@
-- 👋 Hi, I’m @Eboni-github
-- 👀 I’m interested in cloud based solutions
-- 🌱 I’m currently learning Salesforce CDP implementation and AWS
+- 👋 Hi, I’m Eboni 
+- 👀 I am a Cloud Computing Student at WGU
+- 🌱 I’m currently learning Azure and AWS solutions
 - 💞️ I’m looking to collaborate on cloud based integrations
 - 📫 Reach out to me on Linked In. Lets chat!
 
