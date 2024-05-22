@@ -1,0 +1,65 @@
+                            Overview
+This document outlines a procedure to remotely install Visio (or Publisher) on user devices. This approach leverages pre-configured 
+installation files (setup.exe and configuration XML) stored on a centralized server. Through a secure remote 
+connection,you can efficiently deploy Visio while ensuring consistent configuration across user environments.
+
+This guide details the step-by-step process, including:
+    • Executing a PowerShell script with administrator privileges to initiate the installation using the configuration 
+    file.
+
+By following these steps, technicians can deliver streamlined and secure Visio (or Publisher) deployments on user devices.
+
+Pre-Deployment Steps:
+  1. Verify File Placement: Ensure the setup.exe installer and configuration-Office365-x64.xml file is present in the 
+  desired path.
+  a. Create a new Folder on the user’s Desktop named ‘Office’ and place a COPY of the setup.exe installer
+  and configuration xml file in the folder (you can leave it on the server, but be sure to reference accordingly)
+  
+  2. Close Conflicting Applications: Advise the user to save and close any open Office application before proceeding 
+  to minimize interruptions or conflicts during the installation process.
+
+Deployment Process:
+  3. Launch PowerShell or PowerShell ISE as Administrator: On the user’s device, locate and launch the PowerShell 
+  Integrated Scripting Environment (ISE) with administrator privileges.
+  
+  4. Navigate to User Desktop Directory: Within the PowerShell console, utilize the cd (change directory) command 
+  to change the working directory to the user’s desktop or where the installation files reside. 
+        Here’s the syntax:
+        a. cd [path to folder]
+
+  5. Initiate Installation with Configuration: Execute the following command to begin the Visio installation process 
+  while referencing the configuration file: 
+
+      a. .\setup.exe /configure .\(name of XML file)
+
+   6. Monitor Installation Progress: Following the execution of the command, the Visio installation process will 
+  commence. You can monitor the progress through the on-screen prompts.
+
+Post-Installation Tasks:
+7. Activation: Once the installation is complete, verify with the user if Visio requires activation by opening the 
+application. 
+      a. Automatic Activation via Configuration File: The configuration-Office365-x64.xml file is configured to 
+      include the product key. The user should not be prompted to enter a key during the installation process. 
+      Visio should activate automatically upon successful installation.
+
+      Here's the XML syntax to ensure automatic activation: 
+
+<Configuration>
+
+  <Add OfficeClientEdition="64" Channel="Current">
+    <Product ID="[Pick the Correct Product ID" PIDKEY="[Insert the Activation Key Here in #####-#####-#####">
+      <Language ID="en-us" />
+    </Product>
+  </Add>
+
+  <!--  <Updates Enabled="TRUE" Channel="Current" />  -->
+
+  <!--  <Display Level="None" AcceptEULA="TRUE" />  -->
+
+  <!--  <Property Name="AUTOACTIVATE" Value="1" />  -->
+
+</Configuration>
+    
+
+9. Optional Restart: While a restart is typically not required after successful installation, you can recommend the 
+user reboot their device if they encounter any unexpected behaviors.
