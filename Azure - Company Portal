@@ -1,0 +1,74 @@
+Overview
+The Company Portal app acts as a central hub for employees to access corporate resources securely and 
+efficiently. This mobile and desktop application simplifies device enrollment, granting access to essential data and 
+applications like email, files, and approved business apps. With features like single sign-on, device management, and 
+self-service options, Company Portal empowers employees to work productively while ensuring data security and 
+compliance with organizational regulations. It also streamlines IT operations by providing a centralized platform for 
+device management and app deployment, ultimately enhancing user experience and productivity across the 
+organization. 
+
+Some benefits include: 
+          • Boost productivity: Access essential resources from any device, anytime.
+          • Enhance Security: Enforce strict security policies and encrypt data for complete protection.
+          • Empower your employees: Self-service options reduce IT workload and boost user satisfaction.
+          • Simplify device management: Centrally manage enrolled devices and ensure compliance.
+          • Deploy apps effortlessly: Deliver approved business apps directly to employees' devices.
+          • Work seamlessly: Single sign-on unlocks a smooth and convenient user experience.
+
+                                  Instructions on Cloud Service Administration
+
+Getting Started with Company Portal
+Quick Start Guide for Efficient Use
+    1. Ensure your device meets the minimum system requirements for Company Portal.
+
+    2. Assign Device in Intune (Cloud Admin Task): For you to see assigned apps in Company Portal, your device must 
+    be assigned to you in the Intune console.
+
+    3. Automatic Download and Installation: Devices part of your organization groups are 
+    automatically receiving the company portal app, so long as assignments are correct. 
+
+    4. Sign-In and Authenticate: If you are using your assigned device or profile, Company Portal will automatically 
+    sign you in using your credentials. 
+
+    5. Explore the Company Portal Interface:
+          a. Access corporate resources like email, files, and OneDrive.
+          b. Browse and install approved business apps assigned to your device.
+          c. Manage your enrolled devices (add/remove/).
+          i. Note: Wipe has been disabled for user access and can only be conducted by administrators
+          d. View device compliance status and resolve issues.
+          e. Access self-service options and contact IT support for further assistance.
+
+    6. Regularly update the Company Portal app for optimal functionality and security.
+    Using Company Portal Features
+
+Company Portal streamlines mobile device management and empowers your IT team. Here are some of the 
+most convenient features to explore: 
+
+      1. Effortless Enrollment: Onboard new employees quickly by enrolling their devices (desktop, mobile) into 
+      your MDM system with ease.
+      2. Single Sign-On (SSO) Convenience: Eliminate password fatigue and provide seamless access to multiple 
+      corporate resources with a single login.
+      3. Streamlined App Management: Deploy and manage approved business apps directly to employees' 
+      devices, ensuring consistent access to essential tools.
+      4. Proactive Compliance Monitoring: Keep your data protected by remotely monitoring device compliance 
+      status and enforcing security policies.
+      5. Secure Remote Wipe: Protect sensitive information in case of loss or theft by securely wiping lost or stolen 
+      devices.
+      6. Empower Your Employees: Reduce IT workload and empower employees to manage their devices and 
+      access information independently.
+      7. Personalized Experience: Brand the Company Portal app with your organization's logo and colors for a 
+      more engaging and familiar experience.
+      8. Data-Driven Insights: Gain valuable insights into device usage and app deployment through detailed 
+      reports, enabling informed decision-making.
+
+
+
+Security & Compliance Concerns
+Data encryption at rest and in transit
+Data loss prevention (DLP) policies
+Remote wipe capabilities
+Device encryption
+Timely patching of vulnerabilities
+Jailbroken/ rooted devices
+Regular security audits and assessments of Company Portal
+Strong password policies and SSO security
