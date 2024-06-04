@@ -1,0 +1,98 @@
+                                                                           Azure Cloud Services – Win32 App Deployment Troubleshooting Help Guide
+
+
+                                                                                                   Overview
+
+This guide aims to facilitate the easy understanding of how Win32 apps are deployed and identification of reasons behind Win32 app deployment errors encountered within Intune's environment. 
+It provides a list of common errors encountered during the deployment process. NOTE: This list is not exhaustive, it simply provides a foundation for troubleshooting common errors in an environment. 
+
+                                                                            Guided Steps on Intune Win packages and Understanding Win32 Deployment
+
+1.	Create a folder titled IntuneAppPackage on desktop
+      a.	Within this folder create the following two folders: Intune_Input, Intune_Output
+      b.	Within this folder include the Win32 Content Prep tool from the official GitHub repository from here: IntuneWinAppUtil.exe
+
+Note: Intune inherently supports deployment of Windows applications with extensions like MSI, MSIX, APPX, and APPXBUNDLE as Line-of-Business (LOB) applications, it does not support direct deployment of EXE app packages. 
+This is where Intune Management Extension (IME), also known as Intune Sidecar, introduces the concept of “.INTUNEWIN” packages. This acts as a wrapper for application executables (.exe), its install and uninstall commands as 
+well as any dependent files required for deployment. 
+
+2.	In the “Intune_Input” folder, organize the application source file (.exe) and any Install/Uninstall commands (VBScript, PowerShell, CMD or batch script) into a single folder 
+      a.	Note: This folder will be specified as the ‘Source folder’ for the Intune Win32 Content Prep Tool. 
+
+3.	Open the IntuneWinAppUtil.exe directly
+      a.	Note: You can also open the command prompt/ PowerShell with administrative privileges and navigate to the location of the IntuneAppPackage folder using the ‘cd’ command to run the Intune Win32 Content Prep tool by 
+      executing the following command: ‘IntunewinAppUtil.exe’
+
+4.	When prompted, specify the path to the Source folder created containing the application source file (.exe), the install/uninstall scripts and any dependent files. 
+      a.	Note: The install/ uninstall scripts typically include specific actions like configuration settings, creating shortcuts and are separate from the additional install/ uninstall commands specified in Intune for deployment 
+      that are not covered in the packaged scripts. 
+
+5.	When prompted, provide the exact name of the application source file (.exe)
+
+6.	Next, specify the path to the “Intune_Output” folder within the IntuneAppPackage folder as this is where the prepared SHA-256 encrypted .INTUNEWIN file will be generated. This prepared package can then be deployed via Intune for management and 
+installation on Windows endpoints. 
+      a.	Note: Intune provides two primary methods for identifying deployed Win32 applications on devices: 
+          i.	Manual Configuration with pre-defined detection rules within the Intune portal
+          ii.	Detection.xml script outlining specific criteria for Intune to recognize the application that is packaged with the application source file
+
+7.	Once the intunwin package is prepared, it get uploaded to SC DEW’s storage account and the actual application content is submitted to the Intune Content Delivery Network (CDN) 
+
+8.	When a request for the app comes (user initiated for Available deployment, Intune-initiated for Required deployment), the download URL to the encrypted .intunewin is delivered to the endpoint along with decryption information from 
+Intune once the IME agent creates a download job to download, decrypt and unzip the contents. 
+
+9.	The IME agent monitors the installer process and after installs, checks the installation success to report back to the service.
+
+10.	Errors within the Intune portal for a Win32 app deployment can be due to a mistake in the win32 app handling by the IME agent at any of the phases shown in the screenshot above
+      a.	Intune Management Extension Logs can be viewed: C:\ProgramData\Microsoft\IntuneManagementExtension\Logs
+
+
+
+
+                     Common Potential Errors in each Phase
+
+
+Polling Phase                                      	IME inability to get Azure Active Directory token
+
+Retrieve Content Metadata	                          Failutre to retieve content (0x87D30065) *network connectivity
+
+Pre-Install Detection                               Check	Improper detection logic 
+
+Applicability Check	                                IME fails to query system requirements (0x87D30000) *generic system issues
+
+Extended Requirements Check	                        System exception error: Registry Requirement Not Met
+
+Download Phase	                                    Network and dependency on the Background Intelligent Transfer Service (BITS) service: 
+                                                        -	0x87D30000 Unknown
+                                                        -	0x80070001 Incorrect Function
+                                                        -	0x87D300C9 Unmonitored process may time out
+                                                        -	0x87D30068 Error downloading conten
+                                                        -	0x87D3006A The CDN used timed out
+                                                        -	0x8007013A Not enough disk space
+
+Integrity Check & Unzip	                             The system cannot find the file specified (0x80070002)
+                                                     Unzipping Errors: 
+                                                        -	0x87D30067 Error unzipping downloaded content
+                                                        -	0x8007013A Not enough disk space
+                                                        -	0x80070001 Incorrect Function
+                                                        -	0x87D30000 Unknown
+
+Create Installer Process	                              -	0x87D300CD Change in session during app policy process
+                                                        -	0x80070005 IME fails to get elevated token
+                                                        -	0x87D300C9 Unmonitored process may time out (or 0x87D30000 Unknown)
+                                                    Last Handle Result (LastHResult) errors: 
+                                                        -	0x80070004 The system cannot open the file
+                                                        -	0x8007EA61 Undefined 
+                                                        -	0x8007EA68 Undefined 
+
+Post-Installation Detection	                        Improper detection logic or change in session 
+                                                        -	0x87D1041C App was not detected after installation was completed successfully 
+
+Set Compliance State	                              Change in session
+                                                        -	0x87D1041C App was not detected after installation was completed successfully 
+
+Report Status to Service	                          Network connectivity, Users logs off before IME can send the final app results, Session change, System goes to sleep due to inactivity
+                                                        -	0x87D1041C App was not detected after installation was completed successfully 
+                                                        -	0x87D300CA IME client error
+Polling Phase End
+
+
