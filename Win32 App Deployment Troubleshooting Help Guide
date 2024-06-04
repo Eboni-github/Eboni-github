@@ -79,11 +79,15 @@ Integrity Check & Unzip	                             The system cannot find the 
 Create Installer Process	                              -	0x87D300CD Change in session during app policy process
                                                         -	0x80070005 IME fails to get elevated token
                                                         -	0x87D300C9 Unmonitored process may time out (or 0x87D30000 Unknown)
-                                                    Last Handle Result (LastHResult) errors: 
+
+                                                        Last Handle Result (LastHResult) errors: 
                                                         -	0x80070004 The system cannot open the file
                                                         -	0x8007EA61 Undefined 
                                                         -	0x8007EA68 Undefined
                                                         -	0x80070652 Another installation is in progress
+                                                        -	0x80070643 General failure in installation (windows installer service, 
+                                                        corrupted system files, missing installation files, conflicts with other software/exisiting installs,
+                                                        permission/ system policy issues)
 
 Post-Installation Detection	                        Improper detection logic or change in session 
                                                         -	0x87D1041C App was not detected after installation was completed successfully 
