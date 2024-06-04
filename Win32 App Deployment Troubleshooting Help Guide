@@ -82,7 +82,8 @@ Create Installer Process	                              -	0x87D300CD Change in se
                                                     Last Handle Result (LastHResult) errors: 
                                                         -	0x80070004 The system cannot open the file
                                                         -	0x8007EA61 Undefined 
-                                                        -	0x8007EA68 Undefined 
+                                                        -	0x8007EA68 Undefined
+                                                        -	0x80070652 Another installation is in progress
 
 Post-Installation Detection	                        Improper detection logic or change in session 
                                                         -	0x87D1041C App was not detected after installation was completed successfully 
